@@ -26,6 +26,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public NetworkRigidbody2D rigidbody;
     public static int PlayerCounter;
 
+    int AmmunationCounter;
 
     public bool TestBoolOperation;
 
@@ -600,11 +601,33 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
             if ((anim.GetCurrentAnimatorStateInfo(0).IsName("ThrowBall") || anim.GetCurrentAnimatorStateInfo(0).IsName("JumpThrowBall")))
 
             {
-
+                if(gameObject.TryGetComponent<AmmunitionSystem>(out var ammunitionSystem))
+                {
+                    if (Ui.AmmunationCounter < 1)
+                    {
+                        ammunitionSystem.DealRpc(1);
+                        Debug.Log("Buradasfsgsd : " + ammunitionSystem.Ammunation);
+                        Ui.AmmunationCounter++;
+                    }
+                   
+                }
+                
                 if(anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && isShot)
                 {
+
                     isShot = false;
-                    Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
+                    if(BallPosition.position.y < -1.4f)
+                    {
+
+                        BallPosition.position = new Vector3(BallPosition.position.x, -1.4f , BallPosition.position.z);
+                        Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
+
+                    }
+                    else
+                    {
+                        Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
+                    }
+                    
 
 
                     if (Ball2 != null)
@@ -803,7 +826,16 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
             {
 
                 isShot = false;
-                Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
+                if(BallPosition.position.y < -1.4f)
+                {
+                    BallPosition.position = new Vector3(BallPosition.position.x, -1.4f, BallPosition.position.z);
+                    Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
+                }
+                else
+                {
+                    Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
+                }
+                
 
 
                 if (Ball2 != null)

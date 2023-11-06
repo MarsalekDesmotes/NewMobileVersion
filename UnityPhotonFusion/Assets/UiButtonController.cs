@@ -12,6 +12,10 @@ public class UiButtonController : MonoBehaviour //NetworkBehaviour'da yapılabil
     public bool throwBall;
     public int counter;
 
+
+    public int AmmunationCounter;
+
+
     public bool Test;
 
     public Button button;
@@ -81,6 +85,7 @@ public class UiButtonController : MonoBehaviour //NetworkBehaviour'da yapılabil
     {
         if (button.interactable) //ilk anda true 
         {
+            AmmunationCounter = 0;
             counter = 0;
             throwBall = true;
             isTimeFinished = false;
