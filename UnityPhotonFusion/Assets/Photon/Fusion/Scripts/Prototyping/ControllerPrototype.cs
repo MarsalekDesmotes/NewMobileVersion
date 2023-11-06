@@ -16,6 +16,8 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
   protected NetworkRigidbody2D _nrb2d;
   protected NetworkTransform _nt;
 
+
+    public bool JumpControl; //havadayken true , yerde false 
     public TextMeshProUGUI text1; //Bunlar istenen formatta değil
     public TextMeshProUGUI text2;
 
@@ -145,6 +147,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     }
     public static void JumpPlayer(Changed<ControllerPrototype> changed)
     {
+        changed.Behaviour.JumpControl = true;
         changed.Behaviour.anim.SetBool("Jump", true);
         isGrounded1 = false;
         isGrounded2 = false; //Tüm terminallerde bu bilgilerin false olmasını istediğimiz için böyle yazdık
@@ -161,6 +164,9 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
             changed.Behaviour.anim.SetTrigger("Hit");
 
+           
+
+            
             //changed.Behaviour.characterHp1--;
             //changed.Behaviour.RemainingHealth -= 10;
             //changed.Behaviour.text1.text = changed.Behaviour.ToString();
@@ -235,6 +241,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
         Debug.Log("Test et");
         //Hata yok
         changed.Behaviour.anim.SetTrigger("Ground");
+        changed.Behaviour.JumpControl = false; //karakterin havada durduğu sürenin sonuna geldiğimiz tespit edilir.
         changed.Behaviour.NetworkAnim = changed.Behaviour.anim;
         //changed.Behaviour.isGrdnd = false;
         changed.Behaviour.anim.SetBool("Jump", false);
@@ -498,7 +505,16 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
             if (Ui.right)
             {
                 //inactivity = false; //yeni
-                anim.SetBool("Run", true);
+                if (JumpControl) //işe yaramamış olabilir
+                {
+                    //eğer jump animsayonu çalışıyorsa koşma iptal olmalı
+                    anim.SetBool("Run", false);
+                }
+                else
+                {
+                    anim.SetBool("Run", true);
+                }
+                
                 transform.position += new Vector3(speed * Runner.DeltaTime, 0, 0);
                 //BallExplosion.stopIt1 = false;
                 //rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -534,7 +550,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
                 
                 //obje veya particle effect instantiate etmek için bu yöntem kullanılır. Mümkünse particle effect içerisinde süresi dolunca onu destroy veya setActive false yapan bir kod olsun.
                 //Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
-                //Ball2 = NetworkObject.Instantiate(BallPrefab, BallPosition.position, Quaternion.identity);
+                //Ball2 = NetworkObject.Instantiate(BallPrefab , BallPosition.position, Quaternion.identity);
 
                 //Ball2.GetComponentInChildren<Renderer>().enabled = false;
                 //AfterDeSpawnControl = true; //Obje burada setActive false yapıldığı için böyle yazdım
@@ -581,28 +597,32 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
             }
 
 
-            if ((anim.GetCurrentAnimatorStateInfo(0).IsName("ThrowBall") || anim.GetCurrentAnimatorStateInfo(0).IsName("JumpThrowBall") )&& anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && isShot)
+            if ((anim.GetCurrentAnimatorStateInfo(0).IsName("ThrowBall") || anim.GetCurrentAnimatorStateInfo(0).IsName("JumpThrowBall")))
+
             {
 
-
-                isShot = false;
-                Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
-                
-                
-                if (Ball2 != null)
+                if(anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && isShot)
                 {
+                    isShot = false;
+                    Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
 
-                    anim.SetBool("ThrowBall", false);
 
-                    //Ball2.GetComponentInChildren<Renderer>().enabled = true;
+                    if (Ball2 != null)
+                    {
 
-                    //AfterSpawnControl = true;
+                        anim.SetBool("ThrowBall", false);
 
-                    Ball2.transform.GetComponent<Rigidbody2D>().velocity = new Vector3(700 * Runner.DeltaTime , 0 , 0);
+                        //Ball2.GetComponentInChildren<Renderer>().enabled = true;
 
-                    //BallSortingOrder.transform.gameObject.GetComponent<Renderer>().sortingOrder = 94; //Top elden çıktıktan sonra arkaya götür
+                        //AfterSpawnControl = true;
 
+                        Ball2.transform.GetComponent<Rigidbody2D>().velocity = new Vector3(700 * Runner.DeltaTime, 0, 0);
+
+                        //BallSortingOrder.transform.gameObject.GetComponent<Renderer>().sortingOrder = 94; //Top elden çıktıktan sonra arkaya götür
+
+                    }
                 }
+                
             }
             
             /*
