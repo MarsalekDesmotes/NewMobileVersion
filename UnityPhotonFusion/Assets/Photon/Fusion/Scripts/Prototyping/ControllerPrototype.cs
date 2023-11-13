@@ -21,6 +21,8 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public TextMeshProUGUI text1; //Bunlar istenen formatta değil
     public TextMeshProUGUI text2;
 
+    private bool outOfAmmunation;
+
     public float speed = 0.05f;
     public float jump;
     public NetworkRigidbody2D rigidbody;
@@ -151,7 +153,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
         changed.Behaviour.JumpControl = true;
         changed.Behaviour.anim.SetBool("Jump", true);
         isGrounded1 = false;
-        isGrounded2 = false; //Tüm terminallerde bu bilgilerin false olmasını istediğimiz için böyle yazdık
+        
     }
 
     public static void CollidedOnMe(Changed<ControllerPrototype> changed)
@@ -241,11 +243,13 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     {
         Debug.Log("Test et");
         //Hata yok
-        changed.Behaviour.anim.SetTrigger("Ground");
+        changed.Behaviour.anim.SetBool("Jump", false);
+        //changed.Behaviour.anim.SetTrigger("Ground");
         changed.Behaviour.JumpControl = false; //karakterin havada durduğu sürenin sonuna geldiğimiz tespit edilir.
         changed.Behaviour.NetworkAnim = changed.Behaviour.anim;
         //changed.Behaviour.isGrdnd = false;
-        changed.Behaviour.anim.SetBool("Jump", false);
+        
+        //changed.Behaviour.anim.SetTrigger("Ground");
     }
 
   public void Awake()
@@ -268,6 +272,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public override void Spawned()
     {
         base.Spawned();
+        outOfAmmunation = false;
         characterHp1 = 50;
         characterHp2 = 50;
         inactivity = false;
@@ -347,9 +352,10 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
         if (collision.gameObject.tag == "Ground") //Bunu daha optimize yazmayı dene 
         {
             isGrounded1 = true; //Çalışmazsa bunları onChange ile tetikle
-            isGrounded2 = true; //Burada isGrounded tekrar zıplamayı sağlatıyor fakat onChange ile animasyon tetiklenmesi gerektiği için JumpDown yine static olarak son karede bekleyişini sürdürüyor.
+            //Burada isGrounded tekrar zıplamayı sağlatıyor fakat onChange ile animasyon tetiklenmesi gerektiği için JumpDown yine static olarak son karede bekleyişini sürdürüyor.
 
             //Hiç optimize gelmiyor. //Burası sürekli onChange'in çalışmasına sebep olacak bu nedenle kullanımı masraflı olabilir daha masrafsız bir çözüm bulmak iyi olacaktır.   
+            
             if (isGrdnd == true)
             {
                 isGrdnd = false;
@@ -546,16 +552,10 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
             }
 
 
+
             if (Ui.throwBall) //Timer başlangıçta 1.3'den büyük belirlense ilk basışta cooldown olmama şartı sağlanmış olur
             {
-                
-                //obje veya particle effect instantiate etmek için bu yöntem kullanılır. Mümkünse particle effect içerisinde süresi dolunca onu destroy veya setActive false yapan bir kod olsun.
-                //Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
-                //Ball2 = NetworkObject.Instantiate(BallPrefab , BallPosition.position, Quaternion.identity);
-
-                //Ball2.GetComponentInChildren<Renderer>().enabled = false;
-                //AfterDeSpawnControl = true; //Obje burada setActive false yapıldığı için böyle yazdım
-
+                              
                 Ui.throwBall = false;
 
                 if (Delay.ExpiredOrNotRunning(Runner))
@@ -564,14 +564,11 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
                     
                     Debug.Log("Test3");
 
-                    anim.SetBool("ThrowBall", true); //Bu hem havadakini hem yerdeki animasyon için geçerli
-                    //ShootButton.interactable = false;
-                    //Eğer jump throwball veya jumpdown'dayken throwball değeri true dönerse geçiş sağlanıyor.
-                    //Diğer bağlantılı animasyonlara geçiş sağlanamıyor çünkü hepsi hasexittme ile kilitlenmiş durumda
-                    //Örneğin karkater zıpladığı sırada yere değdikten hemen sonra jumpdown çalışır ve karakter yere yumuşak geşiş yapar
-                    //Bu süreç karakterin yere değmeden idle'a geçememesine ve idle'dan da zıplama animasyonuna geçememesine sebep olur.
-                    //Ve atış animasyonunun 0.7'lik diliminden sonra atış gerçekleştiği için burada atış gerçekleşmez.
-
+                    if(outOfAmmunation == false) //mermi bittiyse animasyon çlaışmayacak ve atış animasyonla tetiklendiği için gerçekleşmeyecek
+                    {
+                        anim.SetBool("ThrowBall", true); //Bu hem havadakini hem yerdeki animasyon için geçerli
+                    }
+                                  
                     isShot = true;
                     //BallSortingOrder.transform.gameObject.GetComponent<Renderer>().sortingOrder = 101; //topu atarken öne getir
 
@@ -603,25 +600,35 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
             {
                 if(gameObject.TryGetComponent<AmmunitionSystem>(out var ammunitionSystem))
                 {
+                    
                     if (Ui.AmmunationCounter < 1)
                     {
+                        
                         ammunitionSystem.DealRpc(1);
+                        Debug.Log("Ammunation Counter : " + AmmunationCounter);
+                        //Ui.AmmunationCounter = ammunitionSystem.CounterOfDealRpc; 
+
                         Debug.Log("Buradasfsgsd : " + ammunitionSystem.Ammunation);
-                        Ui.AmmunationCounter++;
+                        //Buraya bir bool ekle mermi 0 olduğu anda false olsun Adı da outOfAmmunation
+                        Ui.AmmunationCounter = ammunitionSystem.Ammunation; //Doğrudan RPC'nin içerisinden local değişkene aktarım yapıyoruz
+                        if(Ui.AmmunationCounter == 0)
+                        {
+                            outOfAmmunation = true;
+                        }
+
                     }
                    
                 }
                 
-                if(anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && isShot)
+                if(anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && isShot) //Burası localde hallolmalı bence çünkü iki atış arasında fark oluşabilir
                 {
-
+                    Debug.Log("AmmunationCounter: " + Ui.AmmunationCounter); //Bu mermi sayısıdır bu 0 olunca atış animasyonu da fırlatma mekaniği de çalışmaz
+                    
                     isShot = false;
-                    if(BallPosition.position.y < -1.4f)
+                    if (BallPosition.position.y < -1.4f)
                     {
-
                         BallPosition.position = new Vector3(BallPosition.position.x, -1.4f , BallPosition.position.z);
-                        Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
-
+                        Ball2 = Runner.Spawn(BallPrefab , BallPosition.position , Quaternion.identity);
                     }
                     else
                     {
@@ -760,7 +767,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
                 anim.SetBool("GoBack", false);
             }
 
-            if (Ui.isJump == true && isGrounded2)
+            if (Ui.isJump == true && isGrounded1)
             {
                 
                 if (isjumping)
@@ -774,7 +781,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
                 
                 //rigidbody2D.constraints = RigidbodyConstraints2D.None;
                 //BallExplosion.stopIt2 = false;
-                anim.SetBool("Jump", true);
+                //anim.SetBool("Jump", true); //Bu iki kez kullanılmamalı
                 rigidbody2D.velocity = new Vector3(0, 600 * Runner.DeltaTime, 0);
                 Ui.isJump = false;
                 
@@ -795,11 +802,17 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
                     Debug.Log("player 2 wasted");
 
                     //obje veya particle effect instantiate etmek için bu yöntem kullanılır. Mümkünse particle effect içerisinde süresi dolunca onu destroy veya setActive false yapan bir kod olsun.
-                   
 
-                    anim.SetBool("ThrowBall", true);
+
+                    if (outOfAmmunation == false) //mermi bittiyse animasyon çlaışmayacak ve atış animasyonla tetiklendiği için gerçekleşmeyecek
+                    {
+                        anim.SetBool("ThrowBall", true); //Bu hem havadakini hem yerdeki animasyon için geçerli
+                    }
 
                     isShot = true;
+
+                    timer = 0; //Bu niye var
+                    
 
                 }
                 
@@ -822,32 +835,63 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
                 Debug.Log("Atış Başladı");
             }
 
-            if ((anim.GetCurrentAnimatorStateInfo(0).IsName("ThrowBall") || anim.GetCurrentAnimatorStateInfo(0).IsName("JumpThrowBall")) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && isShot)
+            if ((anim.GetCurrentAnimatorStateInfo(0).IsName("ThrowBall") || anim.GetCurrentAnimatorStateInfo(0).IsName("JumpThrowBall")))
+
             {
-
-                isShot = false;
-                if(BallPosition.position.y < -1.4f)
+                if (gameObject.TryGetComponent<AmmunitionSystem>(out var ammunitionSystem))
                 {
-                    BallPosition.position = new Vector3(BallPosition.position.x, -1.4f, BallPosition.position.z);
-                    Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
-                }
-                else
-                {
-                    Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
-                }
-                
+                    if (Ui.AmmunationCounter < 1)
+                    {
 
+                        ammunitionSystem.DealRpc(1);
 
-                if (Ball2 != null)
-                {
-                    anim.SetBool("ThrowBall", false);
+                        //Ui.AmmunationCounter = ammunitionSystem.CounterOfDealRpc; 
 
-                    //Ball2.GetComponentInChildren<Renderer>().enabled = true;
-                    //AfterSpawnControl = true;
-                    Ball2.transform.GetComponent<Rigidbody2D>().velocity = new Vector3(-700 * Runner.DeltaTime, 0, 0);
-                    //BallSortingOrder.transform.gameObject.GetComponent<Renderer>().sortingOrder = 94; //Top elden çıktıktan sonra arkaya götür
+                        Debug.Log("Buradasfsgsd : " + ammunitionSystem.Ammunation);
+                        //Buraya bir bool ekle mermi 0 olduğu anda false olsun Adı da outOfAmmunation
+                        Ui.AmmunationCounter = ammunitionSystem.Ammunation; //Doğrudan RPC'nin içerisinden local değişkene aktarım yapıyoruz
+                        if (Ui.AmmunationCounter == 0)
+                        {
+                            outOfAmmunation = true;
+                        }
+
+                    }
 
                 }
+
+                if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && isShot) //Burası localde hallolmalı bence çünkü iki atış arasında fark oluşabilir
+                {
+                    Debug.Log("AmmunationCounter: " + Ui.AmmunationCounter); //Bu mermi sayısıdır bu 0 olunca atış animasyonu da fırlatma mekaniği de çalışmaz
+
+                    isShot = false;
+                    if (BallPosition.position.y < -1.4f)
+                    {
+                        BallPosition.position = new Vector3(BallPosition.position.x, -1.4f, BallPosition.position.z);
+                        Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
+                    }
+                    else
+                    {
+                        Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
+                    }
+
+
+
+                    if (Ball2 != null)
+                    {
+
+                        anim.SetBool("ThrowBall", false);
+
+                        //Ball2.GetComponentInChildren<Renderer>().enabled = true;
+
+                        //AfterSpawnControl = true;
+
+                        Ball2.transform.GetComponent<Rigidbody2D>().velocity = new Vector3(-700 * Runner.DeltaTime, 0, 0);
+
+                        //BallSortingOrder.transform.gameObject.GetComponent<Renderer>().sortingOrder = 94; //Top elden çıktıktan sonra arkaya götür
+
+                    }
+                }
+
             }
             /*
             Debug.Log("Left: " + UiButtonController.isLeft);

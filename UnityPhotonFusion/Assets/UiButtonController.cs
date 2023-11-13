@@ -51,6 +51,7 @@ public class UiButtonController : MonoBehaviour //NetworkBehaviour'da yapılabil
             timeControl = 0;
             button.interactable = true;
             Test = false;
+            //Burada veya controller tarafında mermi bittiğinde bunun çalışmasını durduran birşey koy 
         }
     }
 
@@ -85,7 +86,8 @@ public class UiButtonController : MonoBehaviour //NetworkBehaviour'da yapılabil
     {
         if (button.interactable) //ilk anda true 
         {
-            AmmunationCounter = 0;
+            Debug.Log("Firlattik");
+            AmmunationCounter = 0;//Rpc'nin bir kere çağrılmasını sağlayan counter
             counter = 0;
             throwBall = true;
             isTimeFinished = false;
