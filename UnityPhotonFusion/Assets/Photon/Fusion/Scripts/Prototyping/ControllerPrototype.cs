@@ -111,7 +111,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
     public Animator NetworkAnim;
 
-    public static int CounterOfJump;
+    public int CounterOfJump; //Bununla tek seferlik geçiş sağlamaya çalış
 
     [Networked]
     public Vector3 MovementDirection { get; set; } //Networked anahtar kelimesi tüm bilgisayarlarda ortak değişmesi gereken parametreler için kullanılır.
@@ -150,6 +150,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     {
         
     }
+
     public static void JumpPlayer(Changed<ControllerPrototype> changed)
     {
         changed.Behaviour.JumpControl = true;
@@ -353,7 +354,6 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     {
         if (collision.gameObject.tag == "Ground") //Bunu daha optimize yazmayı dene 
         {
-            CounterOfJump++;
             isGrounded1 = true; //Çalışmazsa bunları onChange ile tetikle
             //Burada isGrounded tekrar zıplamayı sağlatıyor fakat onChange ile animasyon tetiklenmesi gerektiği için JumpDown yine static olarak son karede bekleyişini sürdürüyor.
 
@@ -377,7 +377,19 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
         // Düşün : eğer inactivty false ise ...
 
-        
+        if (collision.gameObject.tag == "Ground")
+        {
+            //isGrounded = true; //Muhtemelen buraya da false ise true , ise false yapan bir sistem yazmalıyım //Sonrasında bu anlıko
+
+            if(isGrdnd == true)
+            {
+                isGrdnd = false;
+            }
+            else
+            {
+                isGrdnd = true;
+            }
+        }
         
         if(collision.gameObject.tag == "Ball")
         {
