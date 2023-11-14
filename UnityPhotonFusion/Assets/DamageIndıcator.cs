@@ -61,7 +61,8 @@ public class DamageIndıcator : MonoBehaviour
         isDamage = true;
         particle.Play();
         //targetValue -= decreasingValue;
-        targetValue = Mathf.Max(((PowerUp*targetValue)+extraHitDamage) - decreasingValue, 0); //PowerUp özel bir durum olduğunda vuruş hasarını katlaması içindir. extraHitDamage ise karakter geliştirildiği sırada kullanılır.
+        targetValue += extraHitDamage;
+        targetValue = Mathf.Max(PowerUp*targetValue - decreasingValue, 0); //PowerUp özel bir durum olduğunda vuruş hasarını katlaması içindir. extraHitDamage ise karakter geliştirildiği sırada kullanılır.
         //Bunu kullanmamım bir sebebi ise ard arda alınan damage'larda karakterin canının azalmaya devam edip gerçek değere kadar çalışacak bir sistemde yazmak istememdir.
 
     }
