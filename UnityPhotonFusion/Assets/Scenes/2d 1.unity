@@ -18414,6 +18414,8 @@ MonoBehaviour:
   targetValue: 0
   deneme: 1.5
   speed: 4
+  Character1: {fileID: 0}
+  Character2: {fileID: 0}
 --- !u!1 &826759799628033282
 GameObject:
   m_ObjectHideFlags: 0

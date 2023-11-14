@@ -9,6 +9,7 @@ TagManager:
   - Ball
   - Player1
   - Player2
+  - HpBar
   layers:
   - Default
   - TransparentFX
