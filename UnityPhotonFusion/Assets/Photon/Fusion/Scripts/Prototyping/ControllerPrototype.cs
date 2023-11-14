@@ -338,7 +338,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
     private void Update()
     {
-        
+        //Debug.Log("Gravity Value : " + GravityValue);
     }
 
 
