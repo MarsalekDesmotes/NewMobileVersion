@@ -30,9 +30,16 @@ public class DamageIndıcator : MonoBehaviour
     public float deneme;
     
     public float speed;
+
+    public GameObject Character1;
+    
+
+    public GameObject Character2;
+
+
     // Start is called before the first frame update
     void Start()
-    {
+    {    
         particle.Stop(); //Efekt oyun başında dursun diye var
         decreasingValue = slider.value / (float)hpValue; //Özel güç vs durumları için decrasingValue 2 ile çarpılabilir
         tmpDecreasingValue = decreasingValue;
@@ -56,6 +63,11 @@ public class DamageIndıcator : MonoBehaviour
         }
         else
         {    
+            
+        }
+
+        if(gameObject.TryGetComponent<AmmunitionSystem>(out var ammunitionSystem))
+        {
             
         }
     }

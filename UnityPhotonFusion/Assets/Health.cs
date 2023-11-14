@@ -1,6 +1,6 @@
 using Fusion;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Health : NetworkBehaviour
 {
     [Networked(OnChanged = nameof(NetworkedHealthChanged))]
@@ -9,9 +9,17 @@ public class Health : NetworkBehaviour
     public int counter;
     public Animator characterAnim;
 
+    public bool MoveHp = false;
+
+    public DamageIndıcator HpBar;
 
 
-    private static void NetworkedHealthChanged(Changed<Health> changed)
+    private void Awake()
+    {
+        HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
+    }
+
+    private static void NetworkedHealthChanged(Changed<Health> changed) //Hp bar burada güncellenmeli
     {
         Debug.Log("Calisti");
         /*
@@ -21,7 +29,8 @@ public class Health : NetworkBehaviour
             changed.Behaviour.characterAnim.SetTrigger("Hit");
         }
         */
-        
+        changed.Behaviour.MoveHp = true;
+        changed.Behaviour.HpBar.DamageOkay();
         
     }
 
@@ -29,6 +38,7 @@ public class Health : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void DealDamageRpc(int damage)
     {
+        //Bunun bir kez çalışmasını sağlayan sayaç 1 olduğunda hp bar harekete geçsin
         if (NetworkedHealth > 0)
         {
             counter = 0;
@@ -36,7 +46,7 @@ public class Health : NetworkBehaviour
             Debug.Log("Received DealDamageRpc on StateAuthority, modifying Networked variable");
             NetworkedHealth -= damage;
             //Explosion gibi effectler buraya konabilir. Önce test et eğer güzel çalışıyorsa koy
-
+            //MoveHp = true;
             
 
             //Healt için onchange tanımla ve hp barını buraya entegre et 
