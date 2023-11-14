@@ -13,11 +13,15 @@ public class DamageIndıcator : MonoBehaviour
     public int hpValue; //Karakter kaç kez darbe alınca yıkılacak onu belirler. Bunu RPC fonksiyonundaki değerden çekmeliyiz.
     float Timer = 0;
 
-    public int decreasingValue; //Her çarmada lerp olarak azalacak olan miktaro
+    public float extraHitDamage = 0; //eğer karakter geliştirildiğse normalden fazla vurabilir.
 
-    public float TimeControl;
+    public float decreasingValue; //Her çarmada lerp olarak azalacak olan miktaro
 
-    public float test;
+    public float PowerUp = 1; //Karakterin özel güç gibi kullanımlarda X kat hasar vermesini sağlar
+
+    public float tmpDecreasingValue;
+
+    public float targetValue = 1f;
 
     public float deneme;
     
@@ -26,6 +30,9 @@ public class DamageIndıcator : MonoBehaviour
     void Start()
     {
         particle.Stop(); //Efekt oyun başında dursun diye var
+        decreasingValue = slider.value / (float)hpValue; //Özel güç vs durumları için decrasingValue 2 ile çarpılabilir
+        tmpDecreasingValue = decreasingValue;
+        targetValue = slider.value;
     }
 
     // Update is called once per frame
@@ -33,18 +40,19 @@ public class DamageIndıcator : MonoBehaviour
     {
         Debug.Log("Denem : " + deneme);
 
-        Debug.Log("TimeControl : " + test);
+        slider.value = Mathf.Lerp(slider.value, targetValue, Time.deltaTime * speed);
 
-        if (slider.value > 0.01f && isDamage && Timer < 1.5f) //Timer değeri burada eksilmenin kaç saniye süreceğini belirliyor
-        {
-            Timer += Time.deltaTime; //Timer burada işin kaç saniye süereceğinibelirlemek için var
-            slider.value -= Time.deltaTime * speed;
-        }
-        else
+        //PowerUp özel bir durum olduğunda karakterin vuruş gücünü dinamik olarak artıracak olan değer 
+       
+        if (targetValue+0.01f > slider.value) //karkaterin hasar aldıktan sonra düşmesi gereken can değeri olan ; target değer ile slider değeri eşitlendiyse particle effect kapatılabilir
         {
             particle.Stop(); //bar hareketi durduğunda efekt dursun diye //Buraya sayaç koyup tekrar DamageOkay olduğunda çalıştır ki sürekli stop func çalışmasın
             isDamage = false;
             Timer = 0;
+        }
+        else
+        {    
+            
         }
     }
 
@@ -52,5 +60,9 @@ public class DamageIndıcator : MonoBehaviour
     {
         isDamage = true;
         particle.Play();
+        //targetValue -= decreasingValue;
+        targetValue = Mathf.Max(((PowerUp*targetValue)+extraHitDamage) - decreasingValue, 0); //PowerUp özel bir durum olduğunda vuruş hasarını katlaması içindir. extraHitDamage ise karakter geliştirildiği sırada kullanılır.
+        //Bunu kullanmamım bir sebebi ise ard arda alınan damage'larda karakterin canının azalmaya devam edip gerçek değere kadar çalışacak bir sistemde yazmak istememdir.
+
     }
 }
