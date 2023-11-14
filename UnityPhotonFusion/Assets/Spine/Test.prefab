@@ -2979,9 +2979,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _NetworkedHealth: 100
+  _NetworkedHealth: 50
   counter: 0
+  counterStart: 0
   characterAnim: {fileID: 698765852658047335}
+  MoveHp: 0
+  HpBar: {fileID: 0}
 --- !u!114 &3517720117633580672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2995,7 +2998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _Ammunation: 0
+  _Ammunation: 50
   CounterOfDealRpc: 0
 --- !u!1 &7445100792286717584
 GameObject:

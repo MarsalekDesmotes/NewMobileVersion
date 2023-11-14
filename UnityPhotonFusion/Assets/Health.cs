@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class Health : NetworkBehaviour
 {
     [Networked(OnChanged = nameof(NetworkedHealthChanged))]
-    public int NetworkedHealth { get; set; } = 100;
+    public int NetworkedHealth { get; set; } = 10;
 
     public int counter;
 

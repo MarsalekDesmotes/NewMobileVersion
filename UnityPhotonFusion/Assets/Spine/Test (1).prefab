@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _Ammunation: 3
+  _Ammunation: 50
   CounterOfDealRpc: 0
 --- !u!1 &1178970709032356486
 GameObject:

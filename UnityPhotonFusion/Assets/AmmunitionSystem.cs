@@ -19,7 +19,7 @@ public class AmmunitionSystem : NetworkBehaviour
 
     public override void Spawned()
     {
-        Ammunation = 3; //Burada yazmak iþe yaradý 
+        Ammunation = 60; //Burada yazmak iþe yaradý 
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
