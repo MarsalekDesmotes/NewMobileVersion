@@ -16,44 +16,25 @@ public class Health : NetworkBehaviour
 
     public DamageIndıcator HpBar;
 
-
+    public override void Spawned()
+    {
+        base.Spawned();
+        HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
+        HpBar.characterHpDeterminer(NetworkedHealth);
+    }
     private void Awake()
     {
-        HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
-        HpBar.characterHpDeterminer(NetworkedHealth); //Burada kaç canımız olduğunu belirledik bar ona göre azalsın diye, Sonradan özelleştirmek için fonksiyona karakterin gücü gibi parametreler eklenebilir.
+         //Burada kaç canımız olduğunu belirledik bar ona göre azalsın diye, Sonradan özelleştirmek için fonksiyona karakterin gücü gibi parametreler eklenebii
     }
 
     private static void NetworkedHealthChanged(Changed<Health> changed) //Hp bar burada güncellenmeli
     {
-        
-        if (changed.Behaviour.counterStart < 1) //ilk başta birşey yapma çünkü başlangıçta değer girişi oldu Bu değişim hp'bar üzerinde etki etmemeli
-        {
-            changed.Behaviour.counterStart++;
-            Debug.Log("Calisti");
-            /*
-            if (changed.Behaviour.counter < 1)
-            {
-                changed.Behaviour.counter++;
-                changed.Behaviour.characterAnim.SetTrigger("Hit");
-            }
-            */
-            //changed.Behaviour.MoveHp = true;
-            
-        }
-        else
-        {
-            
-            //changed.Behaviour.HpBar.characterHpDeterminer(changed.Behaviour.NetworkedHealth); //Burada kaç canımız olduğunu belirledik
-            changed.Behaviour.HpBar.DamageOkay();
-            
-        }
-        
-        
+        changed.Behaviour.HpBar.DamageOkay();
     }
 
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void DealDamageRpc(int damage)
+    public void DealDamageRpc(int damage) //kaç vuracağımız burada
     {
         //Bunun bir kez çalışmasını sağlayan sayaç 1 olduğunda hp bar harekete geçsin
         if (NetworkedHealth > 0)

@@ -45,7 +45,9 @@ public class DamageIndıcator : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
+        decreasingValue = slider.value / (float)hpValue; //Burada hp barının kaç parçaya ayrılacağı yazıldı
+        targetValue = slider.value;
         particle.Stop(); //Efekt oyun başında dursun diye var
         //decreasingValue = slider.value / (float)hpValue; //Özel güç vs durumları için decrasingValue 2 ile çarpılabilir
         //tmpDecreasingValue = decreasingValue;
