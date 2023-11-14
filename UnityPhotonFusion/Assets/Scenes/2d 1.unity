@@ -18406,14 +18406,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particle: {fileID: 8004439490980333833}
   slider: {fileID: 826759799584018062}
-  hpValue: 17
+  hpValue: 5
   extraHitDamage: 0
   decreasingValue: 0
   PowerUp: 1
   tmpDecreasingValue: 0
   targetValue: 0
   deneme: 1.5
-  speed: 15
+  speed: 4
 --- !u!1 &826759799628033282
 GameObject:
   m_ObjectHideFlags: 0

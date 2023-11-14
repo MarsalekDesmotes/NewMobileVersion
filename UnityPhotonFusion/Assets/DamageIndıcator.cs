@@ -9,13 +9,17 @@ public class DamageIndıcator : MonoBehaviour
 
     public static bool isDamage;
     public Slider slider; //Slider value başlangıçta bir değeri alır. Biz onu belirlenen public değişkene bölmeliyiz.
-
+    
+    
+    /**ÖNEMLİ**/
     public int hpValue; //Karakter kaç kez darbe alınca yıkılacak onu belirler. Bunu RPC fonksiyonundaki değerden çekmeliyiz.
+    /**ÖNEMLİ**/
+
     float Timer = 0;
 
     public float extraHitDamage = 0; //eğer karakter geliştirildiğse normalden fazla vurabilir.
 
-    public float decreasingValue; //Her çarmada lerp olarak azalacak olan miktaro
+    public float decreasingValue; //Her çarmada lerp olarak azalacak olan miktar
 
     public float PowerUp = 1; //Karakterin özel güç gibi kullanımlarda X kat hasar vermesini sağlar
 
@@ -61,7 +65,7 @@ public class DamageIndıcator : MonoBehaviour
         isDamage = true;
         particle.Play();
         //targetValue -= decreasingValue;
-        targetValue += extraHitDamage;
+        targetValue -= extraHitDamage; //Kullanılması sağlıklı olmayabilir. PowerUp değeri yeterlidir.
         targetValue = Mathf.Max(PowerUp*targetValue - decreasingValue, 0); //PowerUp özel bir durum olduğunda vuruş hasarını katlaması içindir. extraHitDamage ise karakter geliştirildiği sırada kullanılır.
         //Bunu kullanmamım bir sebebi ise ard arda alınan damage'larda karakterin canının azalmaya devam edip gerçek değere kadar çalışacak bir sistemde yazmak istememdir.
 
