@@ -7,6 +7,9 @@ public class Health : NetworkBehaviour
     public int NetworkedHealth { get; set; } = 100;
 
     public int counter;
+
+    public int counterStart; 
+
     public Animator characterAnim;
 
     public bool MoveHp = false;
@@ -17,20 +20,34 @@ public class Health : NetworkBehaviour
     private void Awake()
     {
         HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
+        HpBar.characterHpDeterminer(NetworkedHealth); //Burada kaç canımız olduğunu belirledik bar ona göre azalsın diye, Sonradan özelleştirmek için fonksiyona karakterin gücü gibi parametreler eklenebilir.
     }
 
     private static void NetworkedHealthChanged(Changed<Health> changed) //Hp bar burada güncellenmeli
     {
-        Debug.Log("Calisti");
-        /*
-        if (changed.Behaviour.counter < 1)
+        
+        if (changed.Behaviour.counterStart < 1) //ilk başta birşey yapma çünkü başlangıçta değer girişi oldu Bu değişim hp'bar üzerinde etki etmemeli
         {
-            changed.Behaviour.counter++;
-            changed.Behaviour.characterAnim.SetTrigger("Hit");
+            changed.Behaviour.counterStart++;
+            Debug.Log("Calisti");
+            /*
+            if (changed.Behaviour.counter < 1)
+            {
+                changed.Behaviour.counter++;
+                changed.Behaviour.characterAnim.SetTrigger("Hit");
+            }
+            */
+            //changed.Behaviour.MoveHp = true;
+            
         }
-        */
-        changed.Behaviour.MoveHp = true;
-        changed.Behaviour.HpBar.DamageOkay();
+        else
+        {
+            
+            //changed.Behaviour.HpBar.characterHpDeterminer(changed.Behaviour.NetworkedHealth); //Burada kaç canımız olduğunu belirledik
+            changed.Behaviour.HpBar.DamageOkay();
+            
+        }
+        
         
     }
 

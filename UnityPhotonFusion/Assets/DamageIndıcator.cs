@@ -12,7 +12,7 @@ public class DamageIndıcator : MonoBehaviour
     
     
     /**ÖNEMLİ**/
-    public int hpValue; //Karakter kaç kez darbe alınca yıkılacak onu belirler. Bunu RPC fonksiyonundaki değerden çekmeliyiz.
+    public int hpValue; //Karakter kaç kez darbe alınca yıkılacak onu belirler. Bunu RPC fonksiyonundaki değere de vermeliyiz
     /**ÖNEMLİ**/
 
     float Timer = 0;
@@ -37,13 +37,19 @@ public class DamageIndıcator : MonoBehaviour
     public GameObject Character2;
 
 
+    public void characterHpDeterminer(int hpValue)
+    {
+        decreasingValue = slider.value / (float)hpValue; //Burada hp barının kaç parçaya ayrılacağı yazıldı
+        targetValue = slider.value; //Buradaysa canın tam değeri girildi (1.0) 
+    }
+
     // Start is called before the first frame update
     void Start()
-    {    
+    {   
         particle.Stop(); //Efekt oyun başında dursun diye var
-        decreasingValue = slider.value / (float)hpValue; //Özel güç vs durumları için decrasingValue 2 ile çarpılabilir
-        tmpDecreasingValue = decreasingValue;
-        targetValue = slider.value;
+        //decreasingValue = slider.value / (float)hpValue; //Özel güç vs durumları için decrasingValue 2 ile çarpılabilir
+        //tmpDecreasingValue = decreasingValue;
+        //targetValue = slider.value;
     }
 
     // Update is called once per frame
