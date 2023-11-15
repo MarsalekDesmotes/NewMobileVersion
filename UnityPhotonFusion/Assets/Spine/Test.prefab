@@ -2979,7 +2979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _NetworkedHealth: 50
+  _NetworkedHealth: 10
   counter: 0
   counterStart: 0
   characterAnim: {fileID: 698765852658047335}

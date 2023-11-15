@@ -14452,7 +14452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1758507852
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -54734,7 +54734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &8957608655192007750
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -54868,7 +54868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &8957608655580626702
 CanvasRenderer:
   m_ObjectHideFlags: 0
