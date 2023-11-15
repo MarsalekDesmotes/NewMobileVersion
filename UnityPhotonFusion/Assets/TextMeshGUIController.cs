@@ -41,7 +41,7 @@ public class TextMeshGUIController : NetworkBehaviour
                 health = GameObject.FindWithTag("Player1").transform.GetComponent<Health>();
                 health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
 
-                controller2 = GameObject.FindWithTag("Player2").transform.GetComponent<ControllerPrototype>();
+                //controller2 = GameObject.FindWithTag("Player2").transform.GetComponent<ControllerPrototype>();
             }
 
 
