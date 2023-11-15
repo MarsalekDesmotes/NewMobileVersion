@@ -16,13 +16,27 @@ public class Health : NetworkBehaviour
 
     public DamageIndıcator HpBar;
 
+    public DamageIndıcator HpBar2;
+
     int counter11;
 
     public override void Spawned()
     {
         base.Spawned();
-        HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
-        HpBar.characterHpDeterminer(NetworkedHealth);
+        if(this.gameObject.tag == "Player1")
+        {
+            HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
+            HpBar.characterHpDeterminer(NetworkedHealth);
+        }
+        if(this.gameObject.tag == "Player2")
+        {
+            HpBar2 = GameObject.FindWithTag("HpBar2").transform.GetComponent<DamageIndıcator>();
+            HpBar2.characterHpDeterminer(NetworkedHealth);
+        }
+        
+       
+       
+        
     }
     private void Awake()
     {
@@ -35,6 +49,7 @@ public class Health : NetworkBehaviour
         if (changed.Behaviour.counter11 > 1)
         {
             changed.Behaviour.HpBar.DamageOkay();
+            changed.Behaviour.HpBar2.DamageOkay();
         }
         
     }
