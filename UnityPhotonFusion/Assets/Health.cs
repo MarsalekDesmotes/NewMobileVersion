@@ -45,9 +45,9 @@ public class Health : NetworkBehaviour
     private static void NetworkedHealthChanged(Changed<Health> changed) //Hp bar burada güncellenmeli
     {
         changed.Behaviour.counter11++;
-        if (changed.Behaviour.counter11 > 1)
+        if (changed.Behaviour.counter11 > 1 && changed.Behaviour.gameObject.tag == "Player1")
         {
-            changed.Behaviour.HpBar.DamageOkay();
+            changed.Behaviour.HpBar.DamageOkay(); //Bu fonksiyon çalıştırıldığında can miktarında hp sayısına göre azalma olur.
             changed.Behaviour.counter11++;
         }
         
