@@ -16,6 +16,8 @@ public class Health : NetworkBehaviour
 
     public DamageIndıcator HpBar;
 
+    int counter11;
+
     public override void Spawned()
     {
         base.Spawned();
@@ -29,7 +31,12 @@ public class Health : NetworkBehaviour
 
     private static void NetworkedHealthChanged(Changed<Health> changed) //Hp bar burada güncellenmeli
     {
-        changed.Behaviour.HpBar.DamageOkay();
+        changed.Behaviour.counter11++;
+        if (changed.Behaviour.counter11 > 1)
+        {
+            changed.Behaviour.HpBar.DamageOkay();
+        }
+        
     }
 
 
