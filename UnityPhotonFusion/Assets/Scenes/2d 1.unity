@@ -2328,6 +2328,7 @@ MonoBehaviour:
   textMesh2: {fileID: 741128575}
   Player1: {fileID: 0}
   health: {fileID: 0}
+  health1: {fileID: 0}
 --- !u!4 &317943209
 Transform:
   m_ObjectHideFlags: 0
