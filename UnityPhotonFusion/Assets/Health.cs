@@ -29,8 +29,8 @@ public class Health : NetworkBehaviour
         }
         if(this.gameObject.tag == "Player2")
         {
-            HpBar2 = GameObject.FindWithTag("HpBar2").transform.GetComponent<DamageIndıcator>();
-            HpBar2.characterHpDeterminer(NetworkedHealth);
+            HpBar = GameObject.FindWithTag("HpBar2").transform.GetComponent<DamageIndıcator>();
+            HpBar.characterHpDeterminer(NetworkedHealth);
         }
         
        
