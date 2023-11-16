@@ -651,7 +651,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
                         //AfterSpawnControl = true;
 
-                        Ball2.transform.GetComponent<Rigidbody2D>().velocity = new Vector3(700 * Runner.DeltaTime, 0, 0);
+                        Ball2.transform.GetComponent<Rigidbody2D>().velocity = new Vector3(1000 * Runner.DeltaTime, 0, 0);
 
                         //BallSortingOrder.transform.gameObject.GetComponent<Renderer>().sortingOrder = 94; //Top elden çıktıktan sonra arkaya götür
 
@@ -890,7 +890,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
                         //AfterSpawnControl = true;
 
-                        Ball2.transform.GetComponent<Rigidbody2D>().velocity = new Vector3(-700 * Runner.DeltaTime, 0, 0);
+                        Ball2.transform.GetComponent<Rigidbody2D>().velocity = new Vector3(-1000 * Runner.DeltaTime, 0, 0);
 
                         //BallSortingOrder.transform.gameObject.GetComponent<Renderer>().sortingOrder = 94; //Top elden çıktıktan sonra arkaya götür
 
