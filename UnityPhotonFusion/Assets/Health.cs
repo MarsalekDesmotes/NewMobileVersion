@@ -22,19 +22,8 @@ public class Health : NetworkBehaviour
     public override void Spawned()
     {
         base.Spawned();
-        if (this.gameObject.tag == "Player1")
-        {
-            HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
-            HpBar.characterHpDeterminer(NetworkedHealth);
-        }
-        if(this.gameObject.tag == "Player2")
-        {
-            HpBar2 = GameObject.FindWithTag("HpBar2").transform.GetComponent<DamageIndıcator>();
-            HpBar2.characterHpDeterminer(NetworkedHealth);
-        }
-        
-       
-        
+        HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
+        HpBar.characterHpDeterminer(NetworkedHealth);
 
     }
     private void Awake()
@@ -45,7 +34,7 @@ public class Health : NetworkBehaviour
     private static void NetworkedHealthChanged(Changed<Health> changed) //Hp bar burada güncellenmeli
     {
         changed.Behaviour.counter11++;
-        if (changed.Behaviour.counter11 > 1 && changed.Behaviour.gameObject.tag == "Player1")
+        if (changed.Behaviour.counter11 > 1)
         {
             changed.Behaviour.HpBar.DamageOkay(); //Bu fonksiyon çalıştırıldığında can miktarında hp sayısına göre azalma olur.
             changed.Behaviour.counter11++;
