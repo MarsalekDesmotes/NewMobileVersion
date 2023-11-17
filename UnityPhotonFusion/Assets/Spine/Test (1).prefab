@@ -699,7 +699,7 @@ MonoBehaviour:
   _NetworkedHealth: 10
   counter: 0
   counterStart: 0
-  characterAnim: {fileID: 0}
+  characterAnim: {fileID: 2297082618038371027}
   MoveHp: 0
   HpBar: {fileID: 0}
   HpBar2: {fileID: 0}
