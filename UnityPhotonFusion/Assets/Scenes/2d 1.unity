@@ -5508,7 +5508,7 @@ GameObject:
   - component: {fileID: 704285870}
   m_Layer: 5
   m_Name: HpTasi (2)
-  m_TagString: HpBar2
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45253,7 +45253,7 @@ GameObject:
   - component: {fileID: 5232559201003105909}
   m_Layer: 5
   m_Name: HpTasi
-  m_TagString: HpBar
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

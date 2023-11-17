@@ -24,8 +24,7 @@ public class Health : NetworkBehaviour
         base.Spawned();
         if(this.gameObject.tag == "Player1")
         {
-            HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
-            
+            HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();   
         }
         if(this.gameObject.tag == "Player2")
         {
