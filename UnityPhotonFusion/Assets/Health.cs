@@ -30,7 +30,7 @@ public class Health : NetworkBehaviour
         {
             HpBar = GameObject.FindWithTag("HpBar2").transform.GetComponent<DamageIndıcator>();
         }
-        HpBar.characterHpDeterminer(NetworkedHealth);
+        HpBar.characterHpDeterminer(NetworkedHealth); //HpBarına can sayısını gönderdiğimiz kısım 
 
     }
     private void Awake()
