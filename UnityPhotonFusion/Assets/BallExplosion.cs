@@ -273,6 +273,17 @@ public class BallExplosion : Fusion.NetworkBehaviour ,INetworkRunnerCallbacks
                 return;
             }
 
+            if (collision.gameObject.TryGetComponent<Health>(out var health))
+            {
+
+                if (counterCollider < 1)
+                {
+                    health.DealDamageRpc(1);
+                    //counter++; //Bu spawnlandığı için tekrar 0'lama gereği duymadım.
+                    counterCollider++;
+                }
+
+            }
             //Player2 = collision.gameObject;
 
 
