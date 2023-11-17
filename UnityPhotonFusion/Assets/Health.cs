@@ -22,7 +22,15 @@ public class Health : NetworkBehaviour
     public override void Spawned()
     {
         base.Spawned();
-        HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
+        if(this.gameObject.tag == "Player1")
+        {
+            HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
+            
+        }
+        if(this.gameObject.tag == "Player2")
+        {
+            HpBar = GameObject.FindWithTag("HpBar2").transform.GetComponent<DamageIndıcator>();
+        }
         HpBar.characterHpDeterminer(NetworkedHealth);
 
     }
