@@ -11,6 +11,8 @@ TagManager:
   - Player2
   - HpBar
   - HpBar2
+  - EndOfMatch
+  - Orta
   layers:
   - Default
   - TransparentFX

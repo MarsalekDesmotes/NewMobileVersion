@@ -8,6 +8,7 @@ public class Health : NetworkBehaviour
 
     public int counter;
 
+    public static bool isEnd;
     public int counterStart; 
 
     public Animator characterAnim;
@@ -17,11 +18,19 @@ public class Health : NetworkBehaviour
     public DamageIndıcator HpBar;
     public DamageIndıcator HpBar2;
 
+    public GameObject EndOfMatch;
+
     int counter11;
 
+
+    private void Start()
+    {
+        EndOfMatch = GameObject.FindWithTag("Orta");
+    }
     public override void Spawned()
     {
         base.Spawned();
+        isEnd = false;
         if(this.gameObject.tag == "Player1")
         {
             HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();   
@@ -68,7 +77,10 @@ public class Health : NetworkBehaviour
         }
         else
         {
+            isEnd = true;
             characterAnim.SetBool("FaintDown", true);
+            //Panel Açılsın
+            //EndOfMatch.SetActive(true);
         }
         
 

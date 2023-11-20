@@ -273,7 +273,7 @@ public class BallExplosion : Fusion.NetworkBehaviour ,INetworkRunnerCallbacks
                 return;
             }
 
-            if (collision.gameObject.TryGetComponent<Health>(out var health1))
+            if (collision.gameObject.TryGetComponent<Health>(out var health1)) //çarptığı objenin healt scriptinden çekiyor
             {
 
                 if (counterCollider < 1)
