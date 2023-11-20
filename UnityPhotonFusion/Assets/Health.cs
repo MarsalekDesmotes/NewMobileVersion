@@ -23,10 +23,9 @@ public class Health : NetworkBehaviour
     int counter11;
 
 
-    private void Start()
-    {
-        EndOfMatch = GameObject.FindWithTag("Orta");
-    }
+   
+    
+
     public override void Spawned()
     {
         base.Spawned();
@@ -44,7 +43,12 @@ public class Health : NetworkBehaviour
     }
     private void Awake()
     {
-         //Burada kaç canımız olduğunu belirledik bar ona göre azalsın diye, Sonradan özelleştirmek için fonksiyona karakterin gücü gibi parametreler eklenebii
+        EndOfMatch = GameObject.FindWithTag("Orta");
+        if(EndOfMatch == null)
+        {
+            Debug.Log("Burası Null");
+        }
+        //Burada kaç canımız olduğunu belirledik bar ona göre azalsın diye, Sonradan özelleştirmek için fonksiyona karakterin gücü gibi parametreler eklenebii
     }
 
     private static void NetworkedHealthChanged(Changed<Health> changed) //Hp bar burada güncellenmeli
@@ -81,7 +85,7 @@ public class Health : NetworkBehaviour
             isEnd = true;
             characterAnim.SetBool("FaintDown", true);
             //Panel Açılsın
-            //EndOfMatch.SetActive(true);
+            EndOfMatch.SetActive(true);
         }
         
 
