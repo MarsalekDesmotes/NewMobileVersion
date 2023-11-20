@@ -84,7 +84,7 @@ public class Health : NetworkBehaviour
 
             //Healt için onchange tanımla ve hp barını buraya entegre et 
         }
-        if(NetworkedHealth == 0)
+        if(NetworkedHealth == 1)
         {  
             characterAnim.SetBool("FaintDown", true);
             //Panel Açılsın
