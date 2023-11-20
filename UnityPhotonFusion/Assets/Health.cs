@@ -62,6 +62,7 @@ public class Health : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void DealDamageRpc(int damage) //kaç vuracağımız burada
     {
+        //Debug.Log("Ping : ");
         //Bunun bir kez çalışmasını sağlayan sayaç 1 olduğunda hp bar harekete geçsin
         if (NetworkedHealth > 0)
         {
