@@ -59,6 +59,10 @@ public class Health : NetworkBehaviour
             changed.Behaviour.HpBar.DamageOkay(); //Bu fonksiyon çalıştırıldığında can miktarında hp sayısına göre azalma olur.
             changed.Behaviour.counter11++;
         }
+        if(changed.Behaviour.NetworkedHealth == 0)
+        {
+            isEnd = true;
+        }
         
     }
 
@@ -81,8 +85,7 @@ public class Health : NetworkBehaviour
             //Healt için onchange tanımla ve hp barını buraya entegre et 
         }
         else
-        {
-            isEnd = true;
+        {  
             characterAnim.SetBool("FaintDown", true);
             //Panel Açılsın
             EndOfMatch.SetActive(true);
