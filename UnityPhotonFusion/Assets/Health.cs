@@ -80,8 +80,6 @@ public class Health : NetworkBehaviour
             NetworkedHealth -= damage;
             //Explosion gibi effectler buraya konabilir. Önce test et eğer güzel çalışıyorsa koy
             //MoveHp = true;
-            
-
             //Healt için onchange tanımla ve hp barını buraya entegre et 
         }
         if(NetworkedHealth == 0)
