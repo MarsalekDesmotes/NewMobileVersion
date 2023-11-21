@@ -127,7 +127,6 @@ public class SpawnerPrototype<T> : SimulationBehaviour, IPlayerJoined, IPlayerLe
         spawnTransform = transform;
      }
         
-
       Vector3 spawnPosition = spawnTransform.position;
       Quaternion spawnRotation = spawnTransform.rotation;
 
@@ -141,10 +140,13 @@ public class SpawnerPrototype<T> : SimulationBehaviour, IPlayerJoined, IPlayerLe
 
       if (runner.SessionInfo.PlayerCount == 1 && runner.IsSharedModeMasterClient) //ilk giren kişi herzaman master client olur 
       {
+                Debug.Log("ilk oyuncu girdi");
             return runner.Spawn(PlayerPrefab, spawnPosition, spawnRotation, player);
+                
       }
       if(runner.SessionInfo.PlayerCount == 2) //eğer 2.oyuncu girdiyse bunu spawn et
       {
+                Debug.Log("ikinci oyuncu girdi");
             return runner.Spawn(PlayerPrefab2, spawnPosition, spawnRotation, player);
       }
       else
