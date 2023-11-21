@@ -16,6 +16,8 @@ public class SpawnerPrototype<T> : SimulationBehaviour, IPlayerJoined, IPlayerLe
     /// </summary>
     /// 
 
+    
+
     [InlineHelp]
   //[UnityEngine.Serialization.FormerlySerializedAs("PlayerPrefab")]
   public NetworkObject PlayerPrefab;

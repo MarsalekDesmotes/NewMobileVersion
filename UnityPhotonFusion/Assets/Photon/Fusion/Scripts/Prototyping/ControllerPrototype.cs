@@ -58,10 +58,6 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     [Networked (OnChanged = nameof(JumpPlayer))]
     public bool isjumping { get; set; }
 
-    [Networked(OnChanged = nameof(numberOfPlayer))]
-    public bool allPlayerJoined { get; set; }
-
-
     [Networked (OnChanged = nameof(CollidedOnMe))]
     public bool isCollisionEnter { get; set; }
 
@@ -130,7 +126,6 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     int counter3;
 
     UiButtonController Ui;
-    GameObject MatchMaking;
 
     public enum playerSelector
     {
@@ -144,12 +139,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public playerSelector player;
 
     bool ShowSpeed => this && !TryGetComponent<NetworkCharacterControllerPrototype>(out _);
-
-
-    public static void numberOfPlayer(Changed<ControllerPrototype> changed)
-    {
-        changed.Behaviour.MatchMaking.SetActive(false);
-    }
+ 
 
     public static void UpdateHealthBar(Changed<ControllerPrototype> changed)
     {
@@ -186,11 +176,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
             //changed.Behaviour.characterHp1--;
             //changed.Behaviour.RemainingHealth -= 10;
             //changed.Behaviour.text1.text = changed.Behaviour.ToString();
-            if (characterHp1 == 0)
-            {
-                //ölme animasyonunu çalıştır
-                changed.Behaviour.anim.SetBool("FaintDown", true);
-            }
+        
         }
     }
     public static void CollidedOnMe2(Changed<ControllerPrototype> changed)
@@ -267,8 +253,6 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
         //RemainingHealth = 100; //Bunu düşür
         //characterHp1 = health;
         Ui = GameObject.FindWithTag("UI").transform.GetComponent<UiButtonController>();
-        MatchMaking = GameObject.FindWithTag("MatchMaking");
-
         //ShootButton = GameObject.FindWithTag("Shot").transform.GetComponent<Button>();
 
 
@@ -283,8 +267,6 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     {
         base.Spawned();
         outOfAmmunation = false;
-        characterHp1 = 50;
-        characterHp2 = 50;
         inactivity = false;
         ammunation = 10; //cephane
     }
@@ -427,7 +409,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
             //collision.gameObject.transform.GetComponent<BallExplosion>().isCollided = isCollisionEnter; //Yukaradaki değişiklikle bu objedeki değişiklikle tetiklenen ExplosionController fonksiyonu da çalışacak
         }
-        if (collision.gameObject.tag == "Ball" && this.gameObject.tag == "Player2" && collision.transform.GetComponent<BallExplosion>().counter<1 && characterHp2>0) //Buraya networkHealth gelmeli
+        if (collision.gameObject.tag == "Ball" && this.gameObject.tag == "Player2" && collision.transform.GetComponent<BallExplosion>().counter<1 && characterHp2>0) //
         {
             inactivity = true; // Topla karakter çarpıştığı için inactivty true olur ve karakterin belirlenen süre boyunca velocity değeri 0 olarak tutulur
             
@@ -454,19 +436,8 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
     public override void FixedUpdateNetwork()
     {
-        //Bu bir eventi onChange ile tetikleyecek.
-        if(Runner.SessionInfo.PlayerCount == 2)
-        {
-            if (allPlayerJoined)
-            {
-                allPlayerJoined = false;
-            }
-            else
-            {
-                allPlayerJoined = true;
-            }
 
-        }
+
 
         if (HasStateAuthority == false)
         {
@@ -726,12 +697,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
             {
                 Debug.Log("Otorite değiilim");
                 return;
-            }
-
-            if (characterHp2 == 0)
-            {
-                anim.SetBool("FaintDown", true);
-            }
+            }          
             /*
             if (inactivity)
             {
