@@ -13,6 +13,7 @@ TagManager:
   - HpBar2
   - EndOfMatch
   - Orta
+  - MatchMaking
   layers:
   - Default
   - TransparentFX
