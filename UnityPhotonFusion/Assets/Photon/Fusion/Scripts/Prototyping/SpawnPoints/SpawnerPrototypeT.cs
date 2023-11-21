@@ -11,10 +11,12 @@ public class SpawnerPrototype<T> : SimulationBehaviour, IPlayerJoined, IPlayerLe
   public enum SpawnMethods { AutoOnNetworkStart, ByScriptOnly }
   public enum AuthorityOptions { Auto, Server, Player }
 
-  /// <summary>
-  /// Reference to the Prefab which will be used for spawning.
-  /// </summary>
-  [InlineHelp]
+    /// <summary>
+    /// Reference to the Prefab which will be used for spawning.
+    /// </summary>
+    /// 
+
+    [InlineHelp]
   //[UnityEngine.Serialization.FormerlySerializedAs("PlayerPrefab")]
   public NetworkObject PlayerPrefab;
     public NetworkObject PlayerPrefab2;
@@ -134,7 +136,7 @@ public class SpawnerPrototype<T> : SimulationBehaviour, IPlayerJoined, IPlayerLe
 
             //var runnner = runners.Current;
 
-            Debug.Log(runner.SessionInfo.PlayerCount);
+            Debug.Log("Counter : "+runner.SessionInfo.PlayerCount);
             Debug.Log("Master Client : "+runner.IsSharedModeMasterClient); //master client oyuna ilk giren kişi (Bunu kullanarak 1. oyuncu ve 2. oyuncu arasında ayrım yapabiliriz) 
             Debug.Log("isRunning" + runner.IsRunning);
 

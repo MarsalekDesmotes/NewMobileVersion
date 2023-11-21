@@ -58,6 +58,10 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     [Networked (OnChanged = nameof(JumpPlayer))]
     public bool isjumping { get; set; }
 
+    [Networked(OnChanged = nameof(numberOfPlayer))]
+    public bool allPlayerJoined { get; set; }
+
+
     [Networked (OnChanged = nameof(CollidedOnMe))]
     public bool isCollisionEnter { get; set; }
 
@@ -126,6 +130,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     int counter3;
 
     UiButtonController Ui;
+    GameObject MatchMaking;
 
     public enum playerSelector
     {
@@ -139,7 +144,12 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public playerSelector player;
 
     bool ShowSpeed => this && !TryGetComponent<NetworkCharacterControllerPrototype>(out _);
- 
+
+
+    public static void numberOfPlayer(Changed<ControllerPrototype> changed)
+    {
+        changed.Behaviour.MatchMaking.SetActive(false);
+    }
 
     public static void UpdateHealthBar(Changed<ControllerPrototype> changed)
     {
@@ -257,6 +267,8 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
         //RemainingHealth = 100; //Bunu düşür
         //characterHp1 = health;
         Ui = GameObject.FindWithTag("UI").transform.GetComponent<UiButtonController>();
+        MatchMaking = GameObject.FindWithTag("MatchMaking");
+
         //ShootButton = GameObject.FindWithTag("Shot").transform.GetComponent<Button>();
 
 
@@ -442,8 +454,19 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
     public override void FixedUpdateNetwork()
     {
+        //Bu bir eventi onChange ile tetikleyecek.
+        if(Runner.SessionInfo.PlayerCount == 2)
+        {
+            if (allPlayerJoined)
+            {
+                allPlayerJoined = false;
+            }
+            else
+            {
+                allPlayerJoined = true;
+            }
 
-
+        }
 
         if (HasStateAuthority == false)
         {
