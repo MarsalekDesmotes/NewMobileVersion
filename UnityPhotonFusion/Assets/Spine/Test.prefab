@@ -2863,8 +2863,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   skeletonParts: {fileID: 3703090709040230395}
-  BallPrefab: {fileID: 1280251699693555067, guid: db19872ab8404485aaeebb657cfb177b,
-    type: 3}
+  BallPrefab: {fileID: 0}
   BallPrefabOpsiyon1: {fileID: 1280251699693555067, guid: db19872ab8404485aaeebb657cfb177b,
     type: 3}
   BallPrefabOpsiyon2: {fileID: 420070724558422644, guid: 58419a3bff59643e7be61efddf3a82cd,

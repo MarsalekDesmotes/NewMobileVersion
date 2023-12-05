@@ -412,7 +412,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
         }
 
         
-        if(collision.gameObject.tag == "Ball" && this.gameObject.tag == "Player1" && collision.transform.GetComponent<BallExplosion>().counter<1 && characterHp1>0) //Top 1 kez çarptıysa Player1'e
+        if(collision.gameObject.tag == "Ball" && this.gameObject.tag == "Player1" && collision.transform.GetComponent<BallExplosion>().counter<1) //Top 1 kez çarptıysa Player1'e
         {
             rigidbody2D.velocity = new Vector3(10000, 0, 0);
 
@@ -431,7 +431,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
             //collision.gameObject.transform.GetComponent<BallExplosion>().isCollided = isCollisionEnter; //Yukaradaki değişiklikle bu objedeki değişiklikle tetiklenen ExplosionController fonksiyonu da çalışacak
         }
-        if (collision.gameObject.tag == "Ball" && this.gameObject.tag == "Player2" && collision.transform.GetComponent<BallExplosion>().counter<1 && characterHp2>0) //
+        if (collision.gameObject.tag == "Ball" && this.gameObject.tag == "Player2" && collision.transform.GetComponent<BallExplosion>().counter<1) //
         {
             inactivity = true; // Topla karakter çarpıştığı için inactivty true olur ve karakterin belirlenen süre boyunca velocity değeri 0 olarak tutulur
             
