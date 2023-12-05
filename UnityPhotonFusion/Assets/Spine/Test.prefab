@@ -446,6 +446,12 @@ MeshRenderer:
   - {fileID: 2100000, guid: 1d5211343b15b46628dbf125ab7fa3f0, type: 2}
   - {fileID: 2100000, guid: 1d5211343b15b46628dbf125ab7fa3f0, type: 2}
   - {fileID: 2100000, guid: 1d5211343b15b46628dbf125ab7fa3f0, type: 2}
+  - {fileID: 2100000, guid: 1d5211343b15b46628dbf125ab7fa3f0, type: 2}
+  - {fileID: 2100000, guid: 1d5211343b15b46628dbf125ab7fa3f0, type: 2}
+  - {fileID: 2100000, guid: 1d5211343b15b46628dbf125ab7fa3f0, type: 2}
+  - {fileID: 2100000, guid: 1d5211343b15b46628dbf125ab7fa3f0, type: 2}
+  - {fileID: 2100000, guid: 1d5211343b15b46628dbf125ab7fa3f0, type: 2}
+  - {fileID: 2100000, guid: 1d5211343b15b46628dbf125ab7fa3f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2859,7 +2865,9 @@ MonoBehaviour:
   skeletonParts: {fileID: 3703090709040230395}
   BallPrefab: {fileID: 1280251699693555067, guid: db19872ab8404485aaeebb657cfb177b,
     type: 3}
-  BallPrefab1: {fileID: 420070724558422644, guid: 58419a3bff59643e7be61efddf3a82cd,
+  BallPrefabOpsiyon1: {fileID: 1280251699693555067, guid: db19872ab8404485aaeebb657cfb177b,
+    type: 3}
+  BallPrefabOpsiyon2: {fileID: 420070724558422644, guid: 58419a3bff59643e7be61efddf3a82cd,
     type: 3}
   BallPosition: {fileID: 3021206546696849712}
   BallSortingOrder: {fileID: 0}

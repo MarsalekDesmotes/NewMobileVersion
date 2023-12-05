@@ -93,7 +93,9 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public SkeletonPartsRenderer skeletonParts;
 
     public NetworkObject BallPrefab;
-    public NetworkObject BallPrefab1;
+
+    public NetworkObject BallPrefabOpsiyon1;
+    public NetworkObject BallPrefabOpsiyon2;
 
     public Transform BallPosition;
     public SpriteRenderer BallSortingOrder;
@@ -272,12 +274,14 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
         if (Runner.SessionInfo.PlayerCount == 1)
         {
             gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player1;
+            BallPrefab = BallPrefabOpsiyon1;
             gameObject.tag = "Player1";
             gameObject.layer = 11;
         }
         if(Runner.SessionInfo.PlayerCount == 2)
         {
             gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player2;
+            BallPrefab = BallPrefabOpsiyon2;
             gameObject.tag = "Player2";
             gameObject.layer = 12;
         }
@@ -869,11 +873,11 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
                     if (BallPosition.position.y < -1.4f)
                     {
                         BallPosition.position = new Vector3(BallPosition.position.x, -1.4f, BallPosition.position.z);
-                        Ball2 = Runner.Spawn(BallPrefab1, BallPosition.position, Quaternion.identity);
+                        Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
                     }
                     else
                     {
-                        Ball2 = Runner.Spawn(BallPrefab1, BallPosition.position, Quaternion.identity);
+                        Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
                     }
 
 
