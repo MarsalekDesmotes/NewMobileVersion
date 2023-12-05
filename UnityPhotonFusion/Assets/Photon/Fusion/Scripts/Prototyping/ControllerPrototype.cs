@@ -55,6 +55,9 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
     public int ammunation;
 
+    [Networked (OnChanged = nameof(CounterPlayer))]
+    public int counterPlayer { get; set; }
+
     [Networked (OnChanged = nameof(JumpPlayer))]
     public bool isjumping { get; set; }
 
@@ -145,7 +148,24 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
 
     bool ShowSpeed => this && !TryGetComponent<NetworkCharacterControllerPrototype>(out _);
  
-
+    public static void CounterPlayer(Changed<ControllerPrototype> changed)
+    {
+        if(changed.Behaviour.counterPlayer == 1)
+        {
+            changed.Behaviour.gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player1;
+            changed.Behaviour.BallPrefab = changed.Behaviour.BallPrefabOpsiyon1;
+            changed.Behaviour.gameObject.tag = "Player1";
+            changed.Behaviour.gameObject.layer = 11;
+        }
+        if(changed.Behaviour.counterPlayer == 2)
+        {
+            changed.Behaviour.gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player2;
+            changed.Behaviour.BallPrefab = changed.Behaviour.BallPrefabOpsiyon2;
+            changed.Behaviour.gameObject.tag = "Player2";
+            changed.Behaviour.gameObject.layer = 12;
+        }
+       
+    }
     public static void UpdateHealthBar(Changed<ControllerPrototype> changed)
     {
 
@@ -271,8 +291,9 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public override void Spawned()
     {
         base.Spawned();
-
-        Debug.Log("Player Count : " + Runner.SessionInfo.PlayerCount);
+        counterPlayer++;
+        Debug.Log("Player Count : " + counterPlayer);
+        /*
         if (HasStateAuthority) // Sadece otorite olan bilgisayarda çalışmasını istiyoruz
         {
             if (Runner.SessionInfo.PlayerCount == 1) //ilk bilgisayarda hem bu hem player count2 çalışır
@@ -300,6 +321,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
                 gameObject.layer = 12;
             }
         }
+        */
         
         
         outOfAmmunation = false;
