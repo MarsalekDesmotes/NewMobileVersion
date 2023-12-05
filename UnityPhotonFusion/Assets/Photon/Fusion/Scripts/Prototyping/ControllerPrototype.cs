@@ -290,6 +290,16 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
                 gameObject.layer = 12;
             }
         }
+        else
+        {
+            if (Runner.SessionInfo.PlayerCount == 2) //ikinci bilgisayarda 2 kere player count 2 çalışır
+            {
+                gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player2;
+                BallPrefab = BallPrefabOpsiyon2;
+                gameObject.tag = "Player2";
+                gameObject.layer = 12;
+            }
+        }
         
         
         outOfAmmunation = false;
