@@ -273,14 +273,14 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
         base.Spawned();
 
         Debug.Log("Player Count : " + Runner.SessionInfo.PlayerCount);
-        if (Runner.SessionInfo.PlayerCount == 1)
+        if (Runner.SessionInfo.PlayerCount == 1 && Runner.IsSharedModeMasterClient) //ilk bilgisayarda hem bu hem player count2 çalışır
         {
             gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player1;
             BallPrefab = BallPrefabOpsiyon1;
             gameObject.tag = "Player1";
             gameObject.layer = 11;
         }
-        if(Runner.SessionInfo.PlayerCount == 2)
+        if(Runner.SessionInfo.PlayerCount == 2) //ikinci bilgisayarda 2 kere player count 2 çalışır
         {
             gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player2;
             BallPrefab = BallPrefabOpsiyon2;
