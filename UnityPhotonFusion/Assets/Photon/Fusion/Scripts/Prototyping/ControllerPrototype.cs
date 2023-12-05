@@ -272,14 +272,15 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     {
         base.Spawned();
 
-        if (Runner.IsSharedModeMasterClient)
+        Debug.Log("Player Count : " + Runner.SessionInfo.PlayerCount);
+        if (Runner.SessionInfo.PlayerCount == 1)
         {
             gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player1;
             BallPrefab = BallPrefabOpsiyon1;
             gameObject.tag = "Player1";
             gameObject.layer = 11;
         }
-        else
+        if(Runner.SessionInfo.PlayerCount == 2)
         {
             gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player2;
             BallPrefab = BallPrefabOpsiyon2;
@@ -287,8 +288,6 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
             gameObject.layer = 12;
         }
         
-        
-
         outOfAmmunation = false;
         inactivity = false;
         ammunation = 10; //cephane
