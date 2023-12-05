@@ -277,7 +277,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
         }
         if(Runner.SessionInfo.PlayerCount == 2)
         {
-            gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player1;
+            gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player2;
             gameObject.tag = "Player2";
             gameObject.layer = 12;
         }
