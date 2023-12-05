@@ -271,14 +271,15 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public override void Spawned()
     {
         base.Spawned();
-        if (Runner.SessionInfo.PlayerCount == 1)
+
+        if (Runner.IsSharedModeMasterClient)
         {
             gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player1;
             BallPrefab = BallPrefabOpsiyon1;
             gameObject.tag = "Player1";
             gameObject.layer = 11;
         }
-        if(Runner.SessionInfo.PlayerCount == 2)
+        else
         {
             gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player2;
             BallPrefab = BallPrefabOpsiyon2;
