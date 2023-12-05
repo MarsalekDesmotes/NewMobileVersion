@@ -1896,7 +1896,7 @@ GameObject:
   - component: {fileID: 245587698}
   m_Layer: 5
   m_Name: Slider 1
-  m_TagString: HpBar2
+  m_TagString: HpBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23847,9 +23847,8 @@ GameObject:
   - component: {fileID: 1113987841}
   - component: {fileID: 1113987840}
   - component: {fileID: 1113987839}
-  - component: {fileID: 1113987838}
-  - component: {fileID: 1113987837}
   - component: {fileID: 1113987836}
+  - component: {fileID: 1113987842}
   m_Layer: 0
   m_Name: Prototype Runner
   m_TagString: Untagged
@@ -23929,42 +23928,6 @@ MonoBehaviour:
   OnReliableData:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1113987837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113987835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b55a6ca2d069a447a0201119c57bc9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sequence: 0
-  BlockingLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  BlockedCheckRadius: 2
---- !u!114 &1113987838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113987835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2e361bfb0186044286ddbd94f2546dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 7923350670195048036, guid: f071421cd109541afa6653a9ea70f788,
-    type: 3}
-  PlayerPrefab2: {fileID: 5103156720608002721, guid: 8bf00c7209e114d1c9496c0a5947e1f1,
-    type: 3}
-  Player1Control: {fileID: 0}
-  SpawnMethod: 0
-  StateAuthority: 0
 --- !u!114 &1113987839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24009,6 +23972,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1113987842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113987835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4371bb6e6ac4674c960aa3c288145ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerPrefab: {fileID: 6439155482086684039, guid: f071421cd109541afa6653a9ea70f788,
+    type: 3}
+  quaternion: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1116490603
 GameObject:
   m_ObjectHideFlags: 0
@@ -43763,7 +43741,7 @@ GameObject:
   - component: {fileID: 826759799584018063}
   m_Layer: 5
   m_Name: Slider 1
-  m_TagString: HpBar
+  m_TagString: HpBar2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

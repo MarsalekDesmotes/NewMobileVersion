@@ -86,12 +86,15 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public bool Test;
 
     public LayerMask Ground;
-    NetworkObject Ball2;
+    NetworkObject Ball2;  
+
     public static bool isGrounded1;
     public static bool isGrounded2;
     public SkeletonPartsRenderer skeletonParts;
 
     public NetworkObject BallPrefab;
+    public NetworkObject BallPrefab1;
+
     public Transform BallPosition;
     public SpriteRenderer BallSortingOrder;
 
@@ -266,6 +269,21 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public override void Spawned()
     {
         base.Spawned();
+        if (Runner.SessionInfo.PlayerCount == 1)
+        {
+            gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player1;
+            gameObject.tag = "Player1";
+            gameObject.layer = 11;
+        }
+        if(Runner.SessionInfo.PlayerCount == 2)
+        {
+            gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player1;
+            gameObject.tag = "Player2";
+            gameObject.layer = 12;
+        }
+        
+        
+
         outOfAmmunation = false;
         inactivity = false;
         ammunation = 10; //cephane
@@ -851,11 +869,11 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
                     if (BallPosition.position.y < -1.4f)
                     {
                         BallPosition.position = new Vector3(BallPosition.position.x, -1.4f, BallPosition.position.z);
-                        Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
+                        Ball2 = Runner.Spawn(BallPrefab1, BallPosition.position, Quaternion.identity);
                     }
                     else
                     {
-                        Ball2 = Runner.Spawn(BallPrefab, BallPosition.position, Quaternion.identity);
+                        Ball2 = Runner.Spawn(BallPrefab1, BallPosition.position, Quaternion.identity);
                     }
 
 

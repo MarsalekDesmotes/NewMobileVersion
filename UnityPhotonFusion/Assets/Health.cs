@@ -32,11 +32,11 @@ public class Health : NetworkBehaviour
         isEnd = false;
         if(this.gameObject.tag == "Player1")
         {
-            HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();   
+            HpBar = GameObject.FindWithTag("HpBar2").transform.GetComponent<DamageIndıcator>();   
         }
         if(this.gameObject.tag == "Player2")
         {
-            HpBar = GameObject.FindWithTag("HpBar2").transform.GetComponent<DamageIndıcator>();
+            HpBar = GameObject.FindWithTag("HpBar").transform.GetComponent<DamageIndıcator>();
         }
         HpBar.characterHpDeterminer(NetworkedHealth); //HpBarına can sayısını gönderdiğimiz kısım 
 

@@ -2742,9 +2742,9 @@ GameObject:
   - component: {fileID: 5493409586310087074}
   - component: {fileID: 2353991919654125686}
   - component: {fileID: 3517720117633580672}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Test
-  m_TagString: Player1
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2859,6 +2859,8 @@ MonoBehaviour:
   skeletonParts: {fileID: 3703090709040230395}
   BallPrefab: {fileID: 1280251699693555067, guid: db19872ab8404485aaeebb657cfb177b,
     type: 3}
+  BallPrefab1: {fileID: 420070724558422644, guid: 58419a3bff59643e7be61efddf3a82cd,
+    type: 3}
   BallPosition: {fileID: 3021206546696849712}
   BallSortingOrder: {fileID: 0}
   isShot: 0
@@ -2873,7 +2875,7 @@ MonoBehaviour:
   TransformLocal: 0
   Speed: 5
   isntFirstShotComleted: 0
-  player: 0
+  player: 1
 --- !u!114 &2242902211858669647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2985,6 +2987,8 @@ MonoBehaviour:
   characterAnim: {fileID: 698765852658047335}
   MoveHp: 0
   HpBar: {fileID: 0}
+  HpBar2: {fileID: 0}
+  EndOfMatch: {fileID: 0}
 --- !u!114 &3517720117633580672
 MonoBehaviour:
   m_ObjectHideFlags: 0
