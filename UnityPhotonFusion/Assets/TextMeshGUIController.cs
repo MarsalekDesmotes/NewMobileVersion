@@ -51,6 +51,10 @@ public class TextMeshGUIController : NetworkBehaviour
 
         }
 
+        //health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
+        health = GameObject.FindWithTag("Player1").transform.GetComponent<Health>();
+        health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
+
         /*
         if (health != null)
         {
@@ -59,6 +63,6 @@ public class TextMeshGUIController : NetworkBehaviour
             textMesh2.text = ControllerPrototype.characterHp2.ToString();
         }
         */
-        
+
     }
 }
