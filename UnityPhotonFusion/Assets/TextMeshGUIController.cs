@@ -13,7 +13,6 @@ public class TextMeshGUIController : NetworkBehaviour
     public TextMeshProUGUI textMesh1;
     public TextMeshProUGUI textMesh2;
 
-    public GameObject Player1;
     public Health health;
     public Health health1;
 
@@ -38,17 +37,12 @@ public class TextMeshGUIController : NetworkBehaviour
         {
             if (counter < 1)
             {
-                health = GameObject.FindWithTag("Player1").transform.GetComponent<Health>();
-                //health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
 
+                //health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
+                health = GameObject.FindWithTag("Player1").transform.GetComponent<Health>();
                 health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
             }
-
-            health = GameObject.FindWithTag("Player1").transform.GetComponent<Health>();
-            //health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
-
-            health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
-
+    
             textMesh1.text = health.NetworkedHealth.ToString();
             textMesh2.text = health1.NetworkedHealth.ToString();
 
