@@ -23849,6 +23849,7 @@ GameObject:
   - component: {fileID: 1113987839}
   - component: {fileID: 1113987836}
   - component: {fileID: 1113987842}
+  - component: {fileID: 1113987843}
   m_Layer: 0
   m_Name: Prototype Runner
   m_TagString: Untagged
@@ -23888,7 +23889,19 @@ MonoBehaviour:
       m_Calls: []
   OnConnectedToServer:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1113987843}
+        m_TargetAssemblyTypeName: testForPlayerId, Assembly-CSharp
+        m_MethodName: onJoinRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDisconnectedFromServer:
     m_PersistentCalls:
       m_Calls: []
@@ -23987,6 +24000,18 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 6439155482086684039, guid: f071421cd109541afa6653a9ea70f788,
     type: 3}
   quaternion: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1113987843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113987835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdb64f1d52bb3744bc7375e25963971, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1116490603
 GameObject:
   m_ObjectHideFlags: 0

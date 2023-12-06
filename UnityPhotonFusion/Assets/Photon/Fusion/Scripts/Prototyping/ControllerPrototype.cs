@@ -150,21 +150,7 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
  
     public static void CounterPlayer(Changed<ControllerPrototype> changed)
     {
-        if(changed.Behaviour.counterPlayer == 1)
-        {
-            changed.Behaviour.gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player1;
-            changed.Behaviour.BallPrefab = changed.Behaviour.BallPrefabOpsiyon1;
-            changed.Behaviour.gameObject.tag = "Player1";
-            changed.Behaviour.gameObject.layer = 11;
-        }
-        if(changed.Behaviour.counterPlayer == 2)
-        {
-            changed.Behaviour.gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player2;
-            changed.Behaviour.BallPrefab = changed.Behaviour.BallPrefabOpsiyon2;
-            changed.Behaviour.gameObject.tag = "Player2";
-            changed.Behaviour.gameObject.layer = 12;
-        }
-       
+        //Burası en son kullanıldı
     }
     public static void UpdateHealthBar(Changed<ControllerPrototype> changed)
     {
@@ -291,8 +277,38 @@ public class ControllerPrototype : Fusion.NetworkBehaviour , INetworkRunnerCallb
     public override void Spawned()
     {
         base.Spawned();
+        // GameObject'in mevcut dönüşünü al
+        Quaternion rotation = transform.rotation;
+
+        // Dönüşü Euler açılarına çevir
+        Vector3 eulerRotation = rotation.eulerAngles;
+
+        // Y eksenindeki açıyı al ve yazdır
+        float yRotation = eulerRotation.y;
+        Debug.Log("Y Eksenindeki Açı: " + yRotation + " derece");
+
+
         counterPlayer++;
+        
+        if (yRotation == 0)
+        {
+            Debug.Log("True");
+            gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player1;
+            BallPrefab = BallPrefabOpsiyon1;
+            gameObject.tag = "Player1";
+            gameObject.layer = 11;
+        }
+        if (yRotation == 180)
+        {
+            Debug.Log("False");
+            gameObject.GetComponent<ControllerPrototype>().player = ControllerPrototype.playerSelector.player2;
+            BallPrefab = BallPrefabOpsiyon2;
+            gameObject.tag = "Player2";
+            gameObject.layer = 12;
+        }
+        
         Debug.Log("Player Count : " + counterPlayer);
+        
         /*
         if (HasStateAuthority) // Sadece otorite olan bilgisayarda çalışmasını istiyoruz
         {
