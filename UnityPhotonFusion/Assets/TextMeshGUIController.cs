@@ -26,25 +26,23 @@ public class TextMeshGUIController : NetworkBehaviour
     {
         
     }
-
+    
     // Update is called once per frame
+   
     void Update()
     {
-        
 
+        /*     
         
         if (GameObject.FindWithTag("Player1") != null && GameObject.FindWithTag("Player2") != null)
         {
+            
             if (counter < 1)
             {
                 //health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
                 health = GameObject.FindWithTag("Player1").transform.GetComponent<Health>();
                 health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
             }
-
-            //health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
-            health = GameObject.FindWithTag("Player1").transform.GetComponent<Health>();
-            health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
 
             textMesh1.text = health.NetworkedHealth.ToString();
             textMesh2.text = health1.NetworkedHealth.ToString();
@@ -55,14 +53,8 @@ public class TextMeshGUIController : NetworkBehaviour
         health = GameObject.FindWithTag("Player1").transform.GetComponent<Health>();
         health1 = GameObject.FindWithTag("Player2").transform.GetComponent<Health>();
 
-        /*
-        if (health != null)
-        {
-            health = GameObject.FindWithTag("Player1").transform.GetComponent<Health>();
-            textMesh1.text = health.NetworkedHealth.ToString();
-            textMesh2.text = ControllerPrototype.characterHp2.ToString();
-        }
         */
-
     }
-}
+        
+
+  } 
